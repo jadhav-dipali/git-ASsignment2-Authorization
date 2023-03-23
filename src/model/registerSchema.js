@@ -14,7 +14,7 @@ const regiSchema= mongoose.Schema({
             type:String,
             require:true,
         }
-})
+});
 
 const Register = new mongoose.model("Rgister" ,regiSchema);
 module.exports = Register;

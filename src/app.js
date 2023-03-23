@@ -6,7 +6,7 @@ const port = process.env.PORT;
 
 const router = require("./routers/register")
 
-app.use(express.json())
+app.use(express.json());
 
 app.use(router)
 

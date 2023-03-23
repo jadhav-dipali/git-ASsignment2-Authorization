@@ -57,9 +57,10 @@ router.post("/login" , async(req, res)=>{
 router.post("/posts" , async(req,res)=>{
     try{
       if(req.headers.authorization){
-        let userVar = jwt.verify(req.headers.authorization, SECRATE_KEY)//id idt //
+        let userVar = jwt.verify(req.headers.authorization, SECRATE_KEY)//id  //
+        console.log(userVar);
         let data = new Posts(
-        {  
+        {   
             userId:userVar._id,//id 
             title:req.body.title,
             body:req.body.body,
@@ -93,8 +94,8 @@ router.get("/posts" , async(req,res)=>{
 router.put("/posts/:id", async(req,res)=>{
     try{
         if(req.headers.authorization){
-      let userVar = jwt.verify(req.headers.authorization, SECRATE_KEY)//id
-      let _id =req.params.id;//post id
+         let userVar = jwt.verify(req.headers.authorization, SECRATE_KEY)//id
+        let _id =req.params.id;//post id
       let post = await Posts.findOne({_id:_id});//user id
       if(post){
         if(userVar._id===post.userId){//tokan id === user id
@@ -105,8 +106,9 @@ router.put("/posts/:id", async(req,res)=>{
            }
       }else{
         res.status(401).send({message:"Invalid Data"}) 
-      }
-     
+      }}
+     else{
+        res.status(401).send({message:"unauthorized"}) 
      }
     }catch(err){
         res.status(400).send(err.message);
